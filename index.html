@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Patterns & fuctional programming intro</title>
+
+
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="shower-ribbon/styles/screen-16x10.css">
+	<style media="screen">
+        .slide {
+            padding-top: 70px;
+        }
+
+	</style>
+</head>
+<body class="shower list">
+	<header class="caption">
+        <h1>Patterns & fuctional programming intro</h1>
+    </header>
+
+	<section class="slide">
+        <h2 class="shout">Patterns</h2>
+    </section>
+
+    <section class="slide">
+        <h2 >Patterns</h2>
+        <blockquote>
+            <p>
+                <b>Паттерн проектирования</b> — это часто встречающееся решение определённой проблемы при проектировании архитектуры программ.
+            </p>
+        </blockquote>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Классификация</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Классификация паттернов</h2>
+        <ul>
+            <li>Порождающие</li>
+            <li>Структурные</li>
+            <li>Поведенческие</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2 class="shout">Порождающие паттерны</h2>
+    </section>
+    <section class="slide">
+        <h2>Порождающие паттерны</h2>
+        <ul>
+            <li>Фабричный метод (Factory Method)</li>
+            <li>Абстрактная фабрика (Abstract Factory)</li>
+            <li>Строитель (Builder)</li>
+            <li>Прототип (Prototype)</li>
+            <li>Одиночка (Singleton)</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Фабричный метод</h2>
+        <pre>
+            <code>function Bob() {</code>
+            <code>    this.prefix = '';</code>
+            <code>    this.say = function() {</code>
+            <code>        console.log(`${this.prefix}, i'm Bob`);</code>
+            <code>    }</code>
+            <code>}</code>
+            <code>const person = new Bob();</code>
+            <code>person.prefix = 'Hello';</code>
+            <code>person.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Фабричный метод</h2>
+        <pre>
+            <code>function Piter() {</code>
+            <code>    this.prefix = '';</code>
+            <code>    this.say = function () {</code>
+            <code>        console.log(`${this.prefix}, i'm Piter`);</code>
+            <code>    }</code>
+            <code>}</code>
+            <code>const person = new Piter();</code>
+            <code>person.prefix = 'Hello';</code>
+            <code>person.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Фабричный метод</h2>
+        <pre style="font-size: 14px;">
+            <code>function Factory() {</code>
+            <code>    this.create = function(type) {</code>
+            <code>        this.person = null;</code>
+            <code>        switch (type) {</code>
+            <code>            case 'Bob':</code>
+            <code>                this.person = new Bob();</code>
+            <code>                break;</code>
+            <code>            case 'Piter':</code>
+            <code>                this.person = new Piter();</code>
+            <code>                break;</code>
+            <code>            default:</code>
+            <code>                return this.person;</code>
+            <code>         }</code>
+            <code>         this.person.prefix = 'Hello';</code>
+            <code>         return this.person;</code>
+            <code>    };</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Фабричный метод</h2>
+        <pre>
+            <code>const person = new Factory();</code>
+            <code>const bob = person.create('Bob');</code>
+            <code>bob.say();</code>
+            <code>const piter = person.create('Piter');</code>
+            <code>piter.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Абстрактная фабрика</h2>
+        <pre>
+            <code>function Person(name) {</code>
+            <code>    this.prefix = '';</code>
+            <code>    this.say = function () {</code>
+            <code>        console.log(`${this.prefix}, i'm ${name}`);</code>
+            <code>    }</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Абстрактная фабрика</h2>
+        <pre>
+            <code>function PersonFactory() {</code>
+            <code>    this.create = function (name, welcomeText) {</code>
+            <code>        const person = new Person(name);</code>
+            <code>        person.prefix = welcomeText;</code>
+            <code>        return person;</code>
+            <code>    };</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Абстрактная фабрика</h2>
+        <pre>
+            <code>const personFactory = new PersonFactory();</code>
+            <code>const bob = personFactory.create('Bob', 'Hello');</code>
+            <code>bob.say();</code>
+            <code>const piter = personFactory.create('Piter', 'Hello');</code>
+            <code>piter.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Абстрактная фабрика</h2>
+        <pre>
+            <code>function TreeFactory() {</code>
+            <code>    this.create = function (branchCount) {</code>
+            <code>        const tree = new Tree();</code>
+            <code>        tree.branchCount = branchCount;</code>
+            <code>        return tree;</code>
+            <code>    };</code>
+            <code>}</code>
+            <code>const treeFactory = new TreeFactory();</code>
+            <code>const oak = treeFactory.create(5);</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Строитель</h2>
+        <ul>
+            <li>Директор</li>
+            <li><mark>Строитель</mark></li>
+            <li>Конкретный строитель</li>
+            <li>Продукт</li>
+        </ul>
+        <blockquote>Строитель — это порождающий паттерн проектирования, который позволяет создавать сложные объекты
+            пошагово</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>Строитель</h2>
+        <img src="pictures/builder-2x.png" height="80%" style="display: block; margin: 0 auto;" alt="">
+    </section>
+
+    <section class="slide">
+        <h2>Строитель</h2>
+        <pre>
+            <code>function Plant() {</code>
+            <code>    this.build = function(builder) {</code>
+            <code>        builder.step1();</code>
+            <code>        builder.step2();</code>
+            <code>        builder.step3();</code>
+            <code>        return builder.get();</code>
+            <code>    }</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Строитель</h2>
+        <pre style="font-size: 18px;">
+            <code>function RobotBuilder() {</code>
+            <code>    this.robot = null;</code>
+            <code>    this.step1 = function() {</code>
+            <code>        this.robot = new Robot();</code>
+            <code>    }</code>
+            <code>    this.step2 = function() {</code>
+            <code>        this.robot.arm = 2;</code>
+            <code>    }</code>
+            <code>    this.get = function() {</code>
+            <code>        return this.robot;</code>
+            <code>    }</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Строитель</h2>
+        <pre>
+            <code>function Robot() {</code>
+            <code>  this.say = function() {</code>
+            <code>    console.log(`Hello, I'm robot with ${this.arm} arms`);</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>Строитель</h2>
+        <pre>
+            <code>const director = new Plant();</code>
+            <code>const robot = director.build(new RobotBuilder);</code>
+            <code>const robot1 = director.build(new RobotBuilder);</code>
+            <code>robot.say();</code>
+            <code>robot1.say();</code>
+        </pre>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="slide">
+        <h2>Самостоятельное изучение</h2>
+        <ul>
+            <li><a href="https://developer.mozilla.org/ru/docs/DOM/DOM_Reference">Руководство по DOM</a>,
+            <a href="https://learn.javascript.ru/introduction-browser-events">Браузерные события</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM">Shadow DOM</a>,
+                <a href="https://learn.javascript.ru/shadow-dom">еще Shadow DOM</a>
+                и <a href="http://w3c.github.io/webcomponents/spec/shadow/">спецификация</a>
+            </li>
+            <li><a href="https://www.youtube.com/watch?v=cCOL7MC4Pl0">Jake Archibald: In The Loop - JSConf.Asia 2018</a></li>
+            <li><a href="https://habr.com/ru/company/ruvds/blog/337042/">Как работает JS: обзор движка, механизмов времени выполнения, стека вызовов</a></li>
+            <li><a href="https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage">LocaStorage</a> и
+            <a href="https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage">sessionStorage</a></li>
+
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Спасибо!</h2>
+        <table class="simple-table">
+            <tr>
+                <td>
+                    <p>
+                        <strong>Denis Zavgorodny</strong>
+                        <br /> web technologist, founder of @ChernivtsiJS,
+                        <br />mentor at @NodeSchool Chernivtsi
+                    </p>
+                    <p>
+                        <a href="https://twitter.com/DenisZavgorodny">@DenisZavgorodny</a>
+                    </p>
+                    <p>
+                        <a href="mailto:denis.zavgorodny@gmail.com">denis.zavgorodny@gmail.com</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+	<div class="progress"></div>
+
+	<script src="shower-core/shower.min.js"></script>
+	<!-- Copyright © 2017 Yours Truly, Famous Inc. -->
+
+</body>
+</html>
