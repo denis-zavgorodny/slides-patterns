@@ -244,6 +244,93 @@
         </pre>
     </section>
 
+    <section class="slide">
+        <h2>Прототип</h2>
+        <pre style="font-size: 22px;">
+            <code>function Robot() {</code>
+            <code>  this.name = '';</code>
+            <code>  this.say = function() {</code>
+            <code>    console.log(`Hello, I'm a Robot, my name is ${this.name}`);</code>
+            <code>  }</code>
+            <code>}</code>
+            <code>const firstRobot = new Robot();</code>
+            <code>firstRobot.name = 'Chappy';</code>
+            <code>firstRobot.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Прототип</h2>
+        <pre>
+            <code>function RobotCloneMaker(proto) {</code>
+            <code>    this.proto = proto;</code>
+            <code>    this.clone = function() {</code>
+            <code>        const robot = new Robot();</code>
+            <code>        robot.name = this.proto.name;</code>
+            <code>        return robot;</code>
+            <code>    }</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Прототип</h2>
+        <pre>
+            <code>const firstRobot = new Robot();</code>
+            <code>firstRobot.name = 'Chappy';</code>
+            <code></code>
+            <code>const cloneMaker = new RobotCloneMaker(firstRobot);</code>
+            <code>const secondRobot = cloneMaker.clone();</code>
+            <code>const thirdRobot = cloneMaker.clone();</code>
+            <code>secondRobot.say();</code>
+            <code>thirdRobot.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Одиночка</h2>
+        <pre>
+            <code>const simple = {</code>
+            <code>    a: 1,</code>
+            <code>    b: 2</code>
+            <code>};</code>
+            <code>const anotherSimple = simple;</code>
+            <code>console.log(anotherSimple, anotherSimple === simple);</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Одиночка</h2>
+        <pre style="font-size: 22px;">
+            <code>function Singletone() {</code>
+            <code>  if (this.__proto__.instance) return this.__proto__.instance;</code>
+            <code>&nbsp;</code>
+            <code>  this.name = 'Bob';</code>
+            <code>  this.__proto__.instance = this;</code>
+            <code>  return this.__proto__.instance;</code>
+            <code>}</code>
+            <code>const withProto = new Singletone();</code>
+            <code>const withProto1 = new Singletone();</code>
+            <code>console.log(withProto, withProto1, withProto === withProto1);</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Одиночка</h2>
+        <pre style="font-size: 22px;">
+            <code>class SingletoneOne {</code>
+            <code>  static instance;</code>
+            <code>  constructor() {</code>
+            <code>    if (instance) return instance;</code>
+            <code>    this.instance = this;</code>
+            <code>  }</code>
+            <code>}</code>
+            <code>const classProto1 = new SingletoneOne();</code>
+            <code>const classProto2 = new SingletoneOne();</code>
+            <code>console.log(classProto1, classProto1, classProto1 === classProto2);</code>
+        </pre>
+    </section>
+
 
 
 
