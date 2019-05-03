@@ -331,6 +331,267 @@
         </pre>
     </section>
 
+    <section class="slide">
+        <h2 class="shout">Структурные</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Структурные</h2>
+        <ul>
+            <li>Адаптер (Adapter)</li>
+            <li>Мост (Bridge)</li>
+            <li>Компоновщик (Composite)</li>
+            <li>Декоратор (Decorator)</li>
+            <li>Фасад (Facade)</li>
+            <li>Легковес (Flyweight)</li>
+            <li>Заместитель (Proxy)</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <img src="pictures/adapter-2x.png" height="80%" style="display: block; margin: 0 auto;" alt="">
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre>
+            <code>function calculator(action, a, b) {</code>
+            <code>  console.log(action.calc(a, b));</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre>
+            <code>function Division() {</code>
+            <code>  this.calc = function (a, b) {</code>
+            <code>    return a / b;</code>
+            <code>  };</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre>
+            <code>const division = new Division();</code>
+            <code>function calculator(action, a, b) {</code>
+            <code>  console.log(action.calc(a, b));</code>
+            <code>}</code>
+            <code>calculator(division, 6, 3);</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre style="font-size: 18px;">
+            <code>function Substraction() {</code>
+            <code>  this.first = null;</code>
+            <code>  this.second = null;</code>
+            <code>  this.setFirst = function(val) {</code>
+            <code>    this.first = val;</code>
+            <code>  }</code>
+            <code>  this.setSecond = function (val) {</code>
+            <code>    this.second = val;</code>
+            <code>  }</code>
+            <code>  this.calc = function () {</code>
+            <code>    return this.first - this.second;</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre>
+            <code><span class="comment">/* interface 1 */</span></code>
+            <code>XXX.calc(a, b);<span class="comment">// -> result</span></code>
+            <code>&nbsp;</code>
+            <code><span class="comment">/* interface 2 */</span></code>
+            <code>YYY.setFirst(a);</code>
+            <code>YYY.setSecond(b);</code>
+            <code>YYY.calc();<span class="comment">// -> result</span></code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>Адаптер</h2>
+        <pre>
+            <code>function SubstractionAdapter(substraction) {</code>
+            <code>  this.calc = function(a, b) {</code>
+            <code>    substraction.setFirst(a);</code>
+            <code>    substraction.setSecond(b);</code>
+            <code>    return substraction.calc();</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>Мост</h2>
+        <blockquote>Мост — это структурный паттерн проектирования, который разделяет один или несколько классов на две
+            отдельные иерархии — абстракцию и реализацию, позволяя изменять их независимо друг от друга.</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>Мост</h2>
+        <pre>
+            <code><span class="comment"><s>const cache = new Cache(store);</s></span></code>
+            <code>cache.set({key: 111}, 'aaa');</code>
+            <code>cache.get('aaa');</code>
+            <code>cache.clear();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Мост</h2>
+        <pre style="font-size: 18px;">
+            <code><span class="comment">/** Abstraction */</span></code>
+            <code>function Store(implementation) {</code>
+            <code>  this.setItem = function(key, value) {</code>
+            <code>    implementation.setItem(key, value);</code>
+            <code>  };</code>
+            <code>  this.getItem = function(key) {</code>
+            <code>    return implementation.getItem(key);</code>
+            <code>  };</code>
+            <code>  this.clear = function() {</code>
+            <code>    implementation.clear();</code>
+            <code>  };</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Мост</h2>
+        <pre style="font-size: 16px;">
+            <code><span class="comment">/** Implementation */</span></code>
+            <code>function FileStorage() {</code>
+            <code>  this.setItem = function (key, value) {</code>
+            <code><span class="comment">/** save to file*/</span></code>
+            <code>    console.log('saved');</code>
+            <code>  };</code>
+            <code>  this.getItem = function (key) {</code>
+            <code><span class="comment">/** read from file*/</span></code>
+            <code>    console.log('got');</code>
+            <code>  };</code>
+            <code>  this.clear = function () {</code>
+            <code><span class="comment">/** remove file*/</span></code>
+            <code>    console.log('clear');</code>
+            <code>  };</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Мост</h2>
+        <pre style="font-size: 18px;">
+            <code><span class="comment">/** User code */</span></code>
+            <code>let store;</code>
+            <code>if(typeof window != 'undefined') {</code>
+            <code>  store = new Store(localStorage);</code>
+            <code>} else {</code>
+            <code>  const fileStorage = new FileStorage();</code>
+            <code>  store = new Store(fileStorage);</code>
+            <code>}</code>
+            <code>const cache = new Cache(store);</code>
+            <code>cache.set({key: 111}, 'aaa');</code>
+            <code>cache.get('aaa');</code>
+            <code>cache.clear();</code>
+
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Декоратор</h2>
+        <pre>
+            <code>function User(name) {</code>
+            <code>  this.name = name;</code>
+            <code>  this.say = function() {</code>
+            <code>    console.log(`Hello, I'm ${this.name}`);</code>
+            <code>  }</code>
+            <code>}</code>
+            <code>const bob = new User('Bob');</code>
+            <code>bob.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Декоратор</h2>
+        <pre style="font-size: 20px;">
+            <code>function ExtendedUser(user, surname) {</code>
+            <code>  this.user = user;</code>
+            <code>  this.name = user.name;</code>
+            <code>  this.surname = surname;</code>
+            <code>  this.say = function () {</code>
+            <code>    console.log(`Hello, I'm ${this.name} ${this.surname}`);</code>
+            <code>  }</code>
+            <code>}</code>
+            <code>const Bob = new User('Bob');</code>
+            <code>const BobMarko = new ExtendedUser(Bob, 'Marko');</code>
+            <code>BobMarko.say();</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Фасад</h2>
+        <pre style="font-size: 20px;">
+            <code>function complicatedFunction1(value) {</code>
+            <code>  console.log(`Do something very complicated with `);</code>
+            <code>  return true;</code>
+            <code>}</code>
+            <code>function complicatedFunction2() {</code>
+            <code>  console.log('Do something complicated');</code>
+            <code>}</code>
+            <code>function complicatedFunction3() {</code>
+            <code>  console.log('Do something else');</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Фасад</h2>
+        <pre style="font-size: 20px;">
+            <code>function Facade(value) {</code>
+            <code>  this.value = value;</code>
+            <code>  this.doSomething = function() {</code>
+            <code>    if (complicatedFunction1(value)) {</code>
+            <code>      complicatedFunction2();</code>
+            <code>    }</code>
+            <code>    complicatedFunction3();</code>
+            <code>  }</code>
+            <code>}</code>
+            <code>const doIt = new Facade('Some data');</code>
+            <code><mark>doIt.doSomething();</mark></code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Заместитель</h2>
+        <pre style="font-size: 20px;">
+            <code>function ConsoleProxy() {</code>
+            <code>  this.log = function(message) {</code>
+            <code>    console.log('======== BEFORE ========');</code>
+            <code>    console.log(message);</code>
+            <code>    console.log('======== AFTER ========');</code>
+            <code>  }</code>
+            <code>}</code>
+            <code></code>
+            <code>const console2 = new ConsoleProxy();</code>
+            <code>console2.log('Hello');</code>
+
+        </pre>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
