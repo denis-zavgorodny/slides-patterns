@@ -768,6 +768,102 @@
         </pre>
     </section>
 
+    <section class="slide">
+        <h2 class="shout">Ууууух</h2>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Иммутабельность</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Иммутабельность</h2>
+        <pre>
+            <code>const arr = [1, 2, 3, 4, 5, 6];</code>
+            <code>function walk(a) {</code>
+            <code>  a.map(el => console.log(el));</code>
+            <code>}</code>
+            <code>dirty();</code>
+            <code>walk(arr); <span class="comment">// -> ???</span></code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Иммутабельность</h2>
+        <pre style="font-size: 24px;">
+            <code>function dirty() {</code>
+            <code>  console.log('Do some action somewhere in your code and...');</code>
+            <code>  arr[3] = 100;</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Иммутабельность</h2>
+        <ul>
+            <li>ваши данные могут меняться где угодно</li>
+            <li>вы не контролируете этого</li>
+            <li>нет понимания текущего состояния программы</li>
+            <li>неудобство тестирования</li>
+        </ul>
+        <p><a href="https://immutable-js.github.io/immutable-js/">Immutable.JS</a></p>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Fuctional Programming</h2>
+    </section>
+
+    <section class="slide">
+        <h2>ФП – функциональное программирование</h2>
+        <blockquote>Функциона́льное программи́рование — раздел дискретной математики и парадигма программирования, в
+            которой процесс вычисления трактуется как вычисление значений функций в математическом понимании последних
+            (в отличие от функций как подпрограмм в процедурном программировании).</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>ФП – функциональное программирование</h2>
+        <blockquote>ФП — это стиль написания программ, при котором просто комбинируется набор функций. В частности, ФП
+            подразумевает обёртывание в функции практически всего подряд.</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Функции</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Чистые функции</h2>
+        <pre>
+            <code>var increment = 0;</code>
+            <code>function autoIncrement() {</code>
+            <code>  return ++increment;</code>
+            <code>}</code>
+            <code>var current = autoIncrement();</code>
+            <code>console.log(current);<span class="comment"> // -> ???</span></code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Чистые функции</h2>
+        <p><code>autoIncrement()</code> – не чистая функция</p>
+        <ul>
+            <li>она <mark>читает</mark> внешнюю переменную <code>counter</code></li>
+            <li>она <mark>модифицирует</mark> внешнюю переменную <code>counter</code></li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Чистые функции</h2>
+        <pre>
+            <code>var increment = 0;</code>
+            <code>function autoIncrement(value) {<span class="comment"> // Чистая функция</span></code>
+            <code>  return ++value;</code>
+            <code>}</code>
+            <code>var current = autoIncrement(increment);</code>
+            <code>console.log(current);<span class="comment"> // -> ???</span></code>
+        </pre>
+    </section>
+
+
 
 
 
