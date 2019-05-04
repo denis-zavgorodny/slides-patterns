@@ -582,18 +582,191 @@
         </pre>
     </section>
 
+    <section class="slide">
+        <h2 class="shout">Поведенческие</h2>
+    </section>
 
+    <section class="slide">
+        <h2>Поведенческие</h2>
+        <ul>
+            <li>Цепочка обязанностей (Chain of Responsibility)</li>
+            <li>Итератор (Iterator)</li>
+            <li>Команда (Command)</li>
+            <li>Посредник (Mediator)</li>
+            <li>Снимок (Momento)</li>
+            <li>Наблюдатель (Observer)</li>
+            <li>Состояние (State)</li>
+            <li>Стратегия (Strategy)</li>
+            <li>Шаблонный метод (Template method)</li>
+            <li>Посетитель (Visitor)</li>
+        </ul>
+    </section>
 
+    <section class="slide">
+        <h2>Цепочка обязанностей</h2>
+        <pre style="font-size: 20px;">
+            <code>&lt;div&gt;</code>
+            <code>  &lt;a href="/" &gt;Link&lt;/a&gt;</code>
+            <code>&lt;/div&gt;</code>
+            <code><span class="comment">=========================</span></code>
+            <code>const el = new gQuery('div').<mark>find</mark>('a').<mark>addClass</mark>('active').<mark>getSelector</mark>();</code>
+            <code>console.log(el); <span class="comment">// -> ???</span></code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Цепочка обязанностей</h2>
+        <pre style="font-size: 15px;">
+            <code>function gQuery(selector) {</code>
+            <code>  this.selector = selector;</code>
+            <code>  this.find = function(el) {</code>
+            <code>    console.log(`Do something to find ""`);</code>
+            <code>    this.selector = el;</code>
+            <code>    return this;</code>
+            <code>  }</code>
+            <code>  this.addClass = function (className) {</code>
+            <code>    console.log(`Do something to add className ""`);</code>
+            <code>    this.selector += `.`;</code>
+            <code>    return this;</code>
+            <code>  }</code>
+            <code>  this.getSelector = function () {</code>
+            <code>    return this.selector;</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Команда</h2>
+        <ul>
+            <li>содержит инструкции к действию</li>
+            <li>содержит инструкции к отмене действия</li>
+            <li>содержит данные для действия</li>
+        </ul>
+    </section>
 
+    <section class="slide">
+        <h2>Команда</h2>
+        <pre>
+            <code>function add(a, b) {</code>
+            <code>  return a + b;</code>
+            <code>}</code>
+            <code>function substract(a, b) {</code>
+            <code>  return a - b;</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Команда</h2>
+        <pre>
+            <code>function <mark>Command</mark>(action, undo, value) {</code>
+            <code>  this.action = action;</code>
+            <code>  this.undo = undo;</code>
+            <code>  this.value = value;</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Команда</h2>
+        <pre>
+            <code>function AddCommand(value) {</code>
+            <code>  return new Command(add, substract, value);</code>
+            <code>}</code>
+        </pre>
+        <a>Пример</a>
+    </section>
 
+    <section class="slide">
+        <h2>Итератор</h2>
+        <pre>
+            <code>function Iterator(items) {</code>
+            <code>  this.items = items;</code>
+            <code>  this.index = 0;</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Итератор</h2>
+        <pre style="font-size:18px;">
+            <code>Iterator.prototype = {</code>
+            <code>  first: function() {</code>
+            <code>    this.reset();</code>
+            <code>    return this.items[this.index];</code>
+            <code>  },</code>
+            <code>  last: function () {</code>
+            <code>    this.index = this.items.length - 1;</code>
+            <code>    return this.items[this.index];</code>
+            <code>  },</code>
+            <code>  next: function() { return this.items[this.index++]; }</code>
+            <code>  reset: function() { this.index = 0; },</code>
+            <code>  hasNext: function() { return this.index < this.items.length; }</code>
+            <code>};</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Итератор</h2>
+        <pre>
+            <code>const iterator = new Iterator([1, 2, 3]);</code>
+            <code>while(iterator.hasNext()) {</code>
+            <code>  console.log(iterator.next());</code>
+            <code>}</code>
+            <code>console.log(iterator.first());</code>
+            <code>console.log(iterator.last());</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Наблюдатель</h2>
+        <pre style="font-size: 17px;">
+            <code>function Observer() {</code>
+            <code>  this.handlers = [];</code>
+            <code>  this.subscribe = function(fn) {</code>
+            <code>    this.handlers.push(fn);</code>
+            <code>  };</code>
+            <code>  this.unsubscribe = function (fn) {</code>
+            <code>    this.handlers = this.handlers.filter(item => item.toString() !== fn.toString());</code>
+            <code>  };</code>
+            <code>  this.trigger = function (data, context) {</code>
+            <code>    this.handlers.map(fn => {</code>
+            <code>      fn.call(context, data);</code>
+            <code>    });</code>
+            <code>  };</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Наблюдатель</h2>
+        <pre style="font-size: 21px;">
+            <code>function Delivery() {</code>
+            <code>  this.handler = null;</code>
+            <code>  this.setStrategy = strategy => this.handler = strategy;</code>
+            <code>  this.calculate = () => this.handler.calculate();</code>
+            <code>}</code>
+            <code>function NovaPoshta() {</code>
+            <code>  this.calculate = () => 25;</code>
+            <code>}</code>
+            <code>function FedEx() {</code>
+            <code>  this.calculate = () => 500;</code>
+            <code>}</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Наблюдатель</h2>
+        <pre style="font-size: 21px;">
+            <code>const delivery = new Delivery();</code>
+            <code>delivery.setStrategy(new NovaPoshta());</code>
+            <code>console.log(delivery.calculate());</code>
+            <code></code>
+            <code>delivery.setStrategy(new FedEx());</code>
+            <code>console.log(delivery.calculate());</code>
+        </pre>
+    </section>
 
 
 
