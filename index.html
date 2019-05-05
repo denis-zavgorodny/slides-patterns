@@ -810,7 +810,11 @@
     </section>
 
     <section class="slide">
-        <h2 class="shout">Fuctional Programming</h2>
+        <h2 class="shout">
+            Fuctional Programming<br />
+            <sub>hit the high spots</sub>
+
+        </h2>
     </section>
 
     <section class="slide">
@@ -863,6 +867,136 @@
         </pre>
     </section>
 
+    <section class="slide">
+        <h2>Ссылочная прозрачность</h2>
+        <blockquote>В результате вычисления ссылочно прозрачной функции она дает одно и то же значение для одних и тех же
+            аргументов. Такие функции называются чистыми функциями.</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>Чистые функции</h2>
+        <p><i>или ссылочно прозрачные</i></p>
+        <p><b>Функция является чистой если:</b></p>
+        <ul>
+            <li>не читает внешний контекст</li>
+            <li>не модифицирует внешний контекст</li>
+            <li>т.е. не зависит от контекста</li>
+            <li>возвращает один и тот же результат при одних и тех же входных данных</li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <h2>Частичное применение</h2>
+        <blockquote>возможность зафиксировать часть аргументов многоместной функции и создать другую
+        функцию, меньшей <b><i>арности</i></b></blockquote>
+        <br />
+        <blockquote><b>Арность</b> – количество аргументов функции</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>Частичное применение</h2>
+        <pre>
+            <code>function add(a, b) {</code>
+            <code>  return a + b;</code>
+            <code>}</code>
+            <code></code>
+            <code>function addPartial(value) {</code>
+            <code>  return function(b) { return add(value, b)}</code>
+            <code>}</code>
+            <code></code>
+            <code>const add5to = addPartial(5); <span class="comment">// -> ???</span></code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>Частичное применение</h2>
+        <pre>
+            <code>function add(a, b) {</code>
+            <code>  return a + b;</code>
+            <code>}</code>
+            <code></code>
+            <code>function addPartial(value) {</code>
+            <code>  return function(b) { return add(value, b)}</code>
+            <code>}</code>
+            <code></code>
+            <code>const add5to = addPartial(5); <span class="comment">// -> ???</span></code>
+            <code>console.log(add5to(3)); <span class="comment">// -> ???</span></code>
+            <code>console.log(addPartial(5)(3)); <span class="comment">// -> ???</span></code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Частичное применение</h2>
+        <pre style="font-size: 20px;">
+            <code>function <mark>volume</mark>(width, height, length) {</code>
+            <code>  return width * height * length;</code>
+            <code>}</code>
+            <code>console.log(volume(2, 3, 100));</code>
+            <code></code>
+            <code>function volumeByLength(length) {</code>
+            <code> return function (width, height) { return <mark>volume</mark>(width, height, length) }</code>
+            <code>}</code>
+            <code>const volumeByLength100 = volumeByLength(100);</code>
+            <code>console.log(volumeByLength100(2,3));</code>
+
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout" style="font-size: 80px;">Каррирование<br />!==<br />Частичное применение</h2>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout" style="font-size: 80px;">Функции первого класса<br />высшего порядка</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Функции первого класса</h2>
+        <blockquote>Объектами первого класса в контексте конкретного языка программирования называются элементы, которые могут быть переданы как параметр,
+            возвращены из функции, присвоены переменной</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Объектами???</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Функции первого класса</h2>
+        <pre>
+            <code>const fn = function() {</code>
+            <code>  <span class="comment">//</span></code>
+            <code>}</code>
+            <code>const someObject = {</code>
+            <code>  method: function() { <span class="comment">//...</span> }</code>
+            <code>}</code>
+            <code>fn(<mark>someObject.method</mark>);</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Функции высшего порядка</h2>
+        <blockquote>Функция высшего порядка — в программировании функция, принимающая в
+            качестве аргументов другие функции или возвращающая другую функцию в качестве результата. Основная идея
+            состоит в том, что функции имеют тот же статус, что и другие объекты данных.</blockquote>
+    </section>
+
+    <section class="slide">
+        <h2>Хммм</h2>
+        <pre>
+            <code>function addPartial(value) {</code>
+            <code>  return function(b) { return add(value, b)}</code>
+            <code>}</code>
+            <code>function calc(action, a, b) { return action(a, b); }</code>
+        </pre>
+    </section>
+
+
+    <section class="slide">
+        <h2 class="shout">Dependency Injection</h2>
+        <p><a>Example</a></p>
+    </section>
+
+
 
 
 
@@ -881,16 +1015,8 @@
     <section class="slide">
         <h2>Самостоятельное изучение</h2>
         <ul>
-            <li><a href="https://developer.mozilla.org/ru/docs/DOM/DOM_Reference">Руководство по DOM</a>,
-            <a href="https://learn.javascript.ru/introduction-browser-events">Браузерные события</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM">Shadow DOM</a>,
-                <a href="https://learn.javascript.ru/shadow-dom">еще Shadow DOM</a>
-                и <a href="http://w3c.github.io/webcomponents/spec/shadow/">спецификация</a>
-            </li>
-            <li><a href="https://www.youtube.com/watch?v=cCOL7MC4Pl0">Jake Archibald: In The Loop - JSConf.Asia 2018</a></li>
-            <li><a href="https://habr.com/ru/company/ruvds/blog/337042/">Как работает JS: обзор движка, механизмов времени выполнения, стека вызовов</a></li>
-            <li><a href="https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage">LocaStorage</a> и
-            <a href="https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage">sessionStorage</a></li>
+            Паттерны проектирования
+            Каррирование
 
         </ul>
     </section>
