@@ -996,19 +996,46 @@
         <p><a>Example</a></p>
     </section>
 
+    <section class="slide">
+        <h2>Мемоизация</h2>
+        <blockquote>Мемоизация — сохранение результатов выполнения функций для предотвращения повторных вычислений</blockquote>
+    </section>
 
+    <section class="slide">
+        <h2>Мемоизация</h2>
+        <pre>
+            <code>function add(a, b) {</code>
+            <code>  var i = 0;</code>
+            <code>  while(i < 10000000000) {</code>
+            <code>    i++;</code>
+            <code>  }</code>
+            <code>  return a + b;</code>
+            <code>}</code>
+        </pre>
+    </section>
 
+    <section class="slide">
+        <h2>Мемоизация <sup style="font-size: 22px;"><a>(example)</a></sup></h2>
+        <pre style="font-size: 18px;">
+            <code>function memoization(fn) {</code>
+            <code>  const cache = {};</code>
+            <code>  return function(...args) {</code>
+            <code>    const hash = args.join('-'); <span class="comment"> // ???</span></code>
+            <code>    if (cache[hash]) {</code>
+            <code>      console.log('Get data from cache');</code>
+            <code>      return cache[hash];</code>
+            <code>    }</code>
+            <code>    console.log('Calculate data');</code>
+            <code>    cache[hash] = fn(...args);</code>
+            <code>    return cache[hash];</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </section>
 
-
-
-
-
-
-
-
-
-
-
+    <section class="slide">
+        <h2 class="shout">That's All Folks</h2>
+    </section>
 
 
 
